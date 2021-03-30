@@ -120,11 +120,11 @@ nav a:hover, .dropdown:hover .dropbtn {
   font-size: x-large;
 }
 
-.box input[type = "text"]::placeholder,.box input[type = "password"]::placeholder{
-  color: #ebf0ef;
+.box input[type = "text"]::placeholder,.box input[type = "password"]::placeholder,.box input[type = "email"]::placeholder{
+  color: #000000;
 }
 
-.box input[type = "text"],.box input[type = "password"]{
+.box input[type = "text"], .box input[type = "password"],.box input[type = "email"]{
   border: 0;
   background: none;
   display: block;
@@ -134,14 +134,15 @@ nav a:hover, .dropdown:hover .dropbtn {
   padding: 14px 10px;
   width: 200px;
   outline: none;
-  color: white;
+  color: #000000;
   border-radius: 24px;
   transition: 0.25s;
+  background: #ebf0ef;
 }
 
-.box input[type = "text"]:focus,.box input[type = "password"]:focus{
+.box input[type = "text"]:focus,.box input[type = "password"]:focus,.box input[type = "email"]:focus{
   width: 280px;
-  border-color: #ebf0ef;
+  border-color: #19b696;
 }
 
 .box input[type ="submit"]{
