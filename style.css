@@ -117,7 +117,7 @@ nav a:hover, .dropdown:hover .dropbtn {
 .box h1{
   text-transform: uppercase;
   font-weight: 500;
-  font-size: x-large;
+  font-size: 40px;
 }
 
 .box input[type = "text"]::placeholder,.box input[type = "password"]::placeholder,.box input[type = "email"]::placeholder{
@@ -159,7 +159,6 @@ nav a:hover, .dropdown:hover .dropbtn {
   transition: 0.25s;
   cursor: pointer;
 }
-
 
 .box input[type ="submit"]:hover{
   background: rgb(73, 73, 73);
