@@ -1,0 +1,93 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Findbite</title>
+{% endblock %}
+
+
+{% block body %}
+<nav>
+    <a href="index.html">Startsida</a>
+    <div class="dropdown">
+        <button class="dropbtn">Min Profil</button>
+        <div class="dropdown-content">
+        <a href="#">Min uppgifter</a>
+        <a href="#">Mina listor</a>
+        <a href="#">Hjälp</a>
+        <a href="#">Logga ut</a>
+        </div>
+    </div> 
+    <a href="#">Om oss</a>
+    <a href="#">Kontakt</a>
+</nav>
+<main>
+    <h1>Välkommen till FindBite!</h1>
+    <p>Vänligen fyll i formuläret för att meddela oss dina preferenser och krav:</p>
+    <form action="#" method="POST">
+        <fieldset>
+            <legend>Matpreferenser</legend>
+                <!--Proteinkälla-->
+                <br>
+                <label for="Proteinkälla">Proteinkälla:</label>
+                <select name="Proteinkälla" id="Proteinkälla">
+                    <option>Kött</option>
+                    <option>Fisk</option>
+                    <option>Kyckling</option>
+                    <option>Vegetariskt</option>
+                    <option>Det spelar ingen roll</option>
+                </select>
+                <br>
+                <!--Typ av mat-->
+                <br>
+                <label for="Typ av mat">Typ av mat:</label>
+                <select name="Typ av mat" id="Typ av mat">
+                    <option>Italienskt</option>
+                    <option>Husmanskost</option>
+                    <option>Grekiskt</option>
+                    <option>Asiatiskt</option>
+                    <option>Det spelar ingen roll</option>
+                </select>
+                <br>
+                <!--Specialkost-->
+                <br>
+                <label for="Specialkost">Specialkost:</label>
+                <select name="Specialkost" id="Specialkost">
+                    <option>Glutenfri</option>
+                    <option>Laktosfri</option>
+                    <option>Nötfri</option>
+                    <option>Det spelar ingen roll</option>
+                </select>
+                <br>
+                <!--Måltider-->
+                <br>
+                <label for="Måltider">Måltider:</label>
+                <select name="Måltider" id="Måltider">
+                    <option>Frukost</option>
+                    <option>Lunch</option>
+                    <option>Middag</option>
+                    <option>Det spelar ingen roll</option>
+                </select>
+                <br>
+                <!--Prisklass-->
+                <p>Prisklass:
+                <br>
+                    <input type="checkbox" name="Villkor" value="Låg">
+                    Låg prisklass
+                    <input type="checkbox" name="Villkor" value="Medel">
+                    Medel prisklass
+                    <input type="checkbox" name="Villkor" value="Hög">
+                    Hög prisklass
+                </p>
+                <!--Checkboxar-->
+                <p> Hemleverans:
+                <br>
+                    <input type="radio" name="Prisklass" value="hemleverans">
+                    Restauranger som erbjuder hemleverans
+                    <input type="radio" name="Prisklass" value="hemleverans">
+                    Spelar ingen roll
+                </p>
+                <input type="submit" value="Hitta Restauranger">
+
+    <p><i>Hoppas du hittar restauranger som är lämpliga för dig!</i><strong><br>FindBite</p></strong>
+</main>
+{% endblock %}
