@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="sv">
+    <head>
+        <meta charset="UTF-8">
+        {% block head %} {% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">    
+        <link rel="stylesheet" href="static\css\style.css" type="text/css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <img src="static\logo.png" alt="logo">
+                <h1>FindBite</h1>
+            </header>
+            {% block body %} {% endblock %}
+        </div>   
+        <footer>
+            <p>Copyright 2021©</p>
+        </footer>
+    </body>
+</html>
