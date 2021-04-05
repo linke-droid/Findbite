@@ -6,27 +6,24 @@
 
 {% block body %}
 <nav>
-    <a href="index.html">Startsida</a>
+    <a href="/">Startsida</a>
     <div class="dropdown">
         <button class="dropbtn">Min Profil</button>
         <div class="dropdown-content">
-        <a href="#">Min uppgifter</a>
-        <a href="#">Mina listor</a>
-        <a href="#">Hjälp</a>
-        <a href="#">Logga ut</a>
+        <a href="login">Logga in</a>
+        <a href="register">Registrera dig</a>
         </div>
     </div> 
-    <a href="#">Om oss</a>
-    <a href="#">Kontakt</a>
+    <a href="aboutus">Om oss</a>
+    <a href="contact">Kontakt</a>
 </nav>
 <main>
-    <form class="box" action="index.html" method="post">
+    <form class="box" action="logedin" method="GET","POST">
         <h1>Logga in</h1>
         <input type="text" name="" placeholder="Användarnamn">
         <input type="password" name="" placeholder="Lösenord">
         <input type="submit" name="" value="Logga in">
+        <a href="register">Skapa ett konto om du ej är registrerad</a>
     </form>
-
-
 </main>
 {% endblock %}
