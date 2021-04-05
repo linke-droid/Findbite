@@ -4,21 +4,18 @@
 <title>Findbite</title>
 {% endblock %}
 
-
 {% block body %}
 <nav>
-    <a href="index.html">Startsida</a>
+    <a href="/">Startsida</a>
     <div class="dropdown">
-        <button class="dropbtn">Min Profil</button>
+        <button class="dropbtn">Profil</button>
         <div class="dropdown-content">
-        <a href="#">Min uppgifter</a>
-        <a href="#">Mina listor</a>
-        <a href="#">Hjälp</a>
-        <a href="#">Logga ut</a>
+        <a href="login">Logga in</a>
+        <a href="register">Registrera dig</a>
         </div>
     </div> 
-    <a href="#">Om oss</a>
-    <a href="#">Kontakt</a>
+    <a href="aboutus">Om oss</a>
+    <a href="contact">Kontakt</a>
 </nav>
 <main>
     <h1>Välkommen till FindBite!</h1>
@@ -87,7 +84,6 @@
                     Spelar ingen roll
                 </p>
                 <input type="submit" value="Hitta Restauranger">
-
     <p><i>Hoppas du hittar restauranger som är lämpliga för dig!</i><strong><br>FindBite</p></strong>
 </main>
 {% endblock %}
