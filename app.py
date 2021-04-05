@@ -26,6 +26,18 @@ class User(db.Model):
 def index():
     return render_template('index.html')
 
+@app.route('/logedin')
+def logedin():
+    return render_template('logedin.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/aboutus')
+def aboutus():
+    return render_template('aboutus.html')
+
 @app.route('/login')
 def login():
     return render_template('login.html')
