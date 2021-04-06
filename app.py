@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from pyodbc import *
+import pyodbc as db
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://Onlinestore:Gst989998@FindBite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://OnlineStore:Gst989998@localhost/FindBite?driver=ODBC+Driver+17+for+SQL+Server'
 app.debug=True
 db = SQLAlchemy(app)
 
@@ -21,6 +21,19 @@ class User(db.Model):
     
     def __repr__(self):
         return '<User %r>' % self.username
+
+db.create_all()
+db.session.add(User(username='admin', email='admin@example.com', password='123'))
+
+@app.route('/check_login', methods=['GET', 'POST'])
+def log_in():
+    user_name = User(request.form['username'])
+    db.execute("select * from user where username=?", (user_name))
+    res = db.fetchone()
+    if not res:
+        return render_template('test.html')
+    else:
+        return render_template('logedin.html')
 
 @app.route('/')
 def index():
@@ -46,9 +59,9 @@ def login():
 def register():
     return render_template('register.html')
 
-@app.route('/post_user', methods=['GET', 'POST'])
+@app.route('/post_user', methods=['POST'])
 def post_user():
-        user = User(request.form['username'], request.form['email'],request.form['password'])
+        user = User(request.form['username'], request.form['email'], request.form['password'])
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('index'))
