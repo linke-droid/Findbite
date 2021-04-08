@@ -164,6 +164,16 @@ nav a:hover, .dropdown:hover .dropbtn {
   background: rgb(73, 73, 73);
 }
 
+/* Contact */
+
+#simon {
+  float: left;
+}
+
+#ghazi {
+  float: left;
+}
+
 /* FOOTER */
 footer {
   background-color: rgb(224, 42, 42);
