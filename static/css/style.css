@@ -164,10 +164,18 @@ nav a:hover, .dropdown:hover .dropbtn {
   background: rgb(73, 73, 73);
 }
 
+.box a{
+  color: #000000;
+}
 /* Contact */
 
 #simon {
   float: left;
+}
+
+#simon img{
+  width: 189px;
+  height: 232px;
 }
 
 #ghazi {
