@@ -25,21 +25,6 @@ class User(db.Model):
 db.create_all()
 db.session.add(User(username='admin', email='admin@example.com', password='123'))
 
-@app.route('/check_login', methods=['GET', 'POST'])
-def log_in():
-    if request.method == "POST":
-        user_name = request.form['username']
-        pass_word = request.form['password']
-        res = User.query.filter_by(username = user_name, password = pass_word).all()
-        if not res:
-            return render_template('wronglogin.html')
-
-        else:
-            return render_template('logedin.html')
-        
-    else:
-        return render_template('index.html')
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -64,12 +49,46 @@ def login():
 def register():
     return render_template('register.html')
 
+@app.route('/myinfo')
+def myinfo():
+    return render_template('myinfo.html')
+
+@app.route('/editmyinfo')
+def edit_myinfo():
+    return render_template('edit_myinfo.html')
+
 @app.route('/post_user', methods=['POST'])
 def post_user():
         user = User(request.form['username'], request.form['email'], request.form['password'])
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('index'))
+
+@app.route('/check_login', methods=['GET', 'POST'])
+def log_in():
+    if request.method == "POST":
+        user_name = request.form['username']
+        pass_word = request.form['password']
+        res = User.query.filter_by(username = user_name, password = pass_word).all()
+        if not res:
+            return render_template('wronglogin.html')
+        else:
+            return render_template('logedin.html')
+    else:
+        return render_template('index.html')
+
+@app.route('/push_new_info', methods=['GET', 'POST'])
+def push_new_info(id):
+    found_user = User.query.get(id)
+    if request.method == "POST":
+        found_user.username = request.form['username']
+        found_user.password = request.form['password']
+        found_user.email = request.form['email']
+        db.session.add(found_user)
+        db.session.commit()
+        return redirect(url_for('index'))
+    else:
+        return render_template('index.html')
 
 if __name__ == "__main__":
     app.run()
