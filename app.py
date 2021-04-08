@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-import pyodbc as db
+from pyodbc import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://OnlineStore:Gst989998@localhost/FindBite?driver=ODBC+Driver+17+for+SQL+Server'
@@ -27,13 +27,18 @@ db.session.add(User(username='admin', email='admin@example.com', password='123')
 
 @app.route('/check_login', methods=['GET', 'POST'])
 def log_in():
-    user_name = User(request.form['username'])
-    db.execute("select * from user where username=?", (user_name))
-    res = db.fetchone()
-    if not res:
-        return render_template('test.html')
+    if request.method == "POST":
+        user_name = request.form['username']
+        pass_word = request.form['password']
+        res = User.query.filter_by(username = user_name, password = pass_word).all()
+        if not res:
+            return render_template('wronglogin.html')
+
+        else:
+            return render_template('logedin.html')
+        
     else:
-        return render_template('logedin.html')
+        return render_template('index.html')
 
 @app.route('/')
 def index():
