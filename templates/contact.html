@@ -1,0 +1,40 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Findbite</title>
+{% endblock %}
+
+{% block body %}
+<nav>
+    <a href="/">Startsida</a>
+    <div class="dropdown">
+        <button class="dropbtn">Min Profil</button>
+        <div class="dropdown-content">
+        <a href="login">Logga in</a>
+        <a href="register">Registrera dig</a>
+        </div>
+    </div> 
+    <a href="aboutus">Om oss</a>
+    <a href="contact">Kontakt</a>
+</nav>
+<main>
+    <h1>Kontakt</h1>
+    <h3>På FindBite är vi 4 utvecklare och nedan kommer vår kontaktinformation!</h3>
+    <figure id="simon">
+        <img src="static\simon.jpg" alt="Simon">
+        <p>Simon Eskilsson</p>
+        <a href="mailto:simon.654@hotmail.com"></a>
+        <p>E-post: <a href ="mailto:simon.654@hotmail.com">simon.654@hotmail.com</a></p>
+        <a href="tel:+46709305001"></a>
+        <p>Mobilnummer: <a href="tel:+46709305001">+46709305001</a></p>
+    </figure>
+    <figure id="ghazi">
+        <img src="static\ghazi.jpg" alt="Ghazi">
+        <p>Ghazi Abdallah</p>
+        <a href="mailto:ghazi-1357@hotmail.com"></a>
+        <p>E-post: <a href ="mailto:ghazi-1357@hotmail.com">ghazi-1357@hotmail.com</a></p>
+        <a href="tel:+46793409138"></a>
+        <p>Mobilnummer: <a href="tel:+46793409138">+46793409138</a></p>
+    </figure>
+</main>
+{% endblock %}
