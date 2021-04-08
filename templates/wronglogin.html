@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Findbite</title>
+{% endblock %}
+
+{% block body %}
+<nav>
+    <a href="/">Startsida</a>
+    <div class="dropdown">
+        <button class="dropbtn">Min Profil</button>
+        <div class="dropdown-content">
+        <a href="login">Logga in</a>
+        <a href="register">Registrera dig</a>
+        </div>
+    </div> 
+    <a href="aboutus">Om oss</a>
+    <a href="contact">Kontakt</a>
+</nav>
+<main>
+    <form class="box" action="\check_login" method="POST">
+        <h1>Logga in</h1>
+        <input type="text" name="username" placeholder="Användarnamn">
+        <input type="password" name="password" placeholder="Lösenord">
+        <input type="submit" value="Logga in">
+        <a href="register">Skapa ett konto om du ej är registrerad</a>
+    </form>
+    <p> Inloggning misslyckades, kontrollera användarnamn och lösenord!</p>
+</main>
+{% endblock %}
