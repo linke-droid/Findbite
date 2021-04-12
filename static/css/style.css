@@ -178,6 +178,16 @@ nav a:hover, .dropdown:hover .dropbtn {
   height: 232px;
 }
 
+#linus {
+  float: left;
+}
+
+#linus img{
+  width: 189px;
+  height: 232px;
+
+}
+
 #ghazi {
   float: left;
 }
