@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
+import requests
 from flask_sqlalchemy import SQLAlchemy
 from pyodbc import *
+import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://OnlineStore:Gst989998@localhost/FindBite?driver=ODBC+Driver+17+for+SQL+Server'
@@ -24,6 +26,12 @@ class User(db.Model):
 
 db.create_all()
 db.session.add(User(username='admin', email='admin@example.com', password='123'))
+
+@app.route('/result', methods=['GET'])
+def result():
+    req = requests.get('https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+toronto+canada&key=AIzaSyDBzaptmbm9nuWuFAbjsyxEsz5OGbB0oIs')
+    data = json.loads(req.content)
+    return render_template('result.html', data=data)
 
 @app.route('/')
 def index():
