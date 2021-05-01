@@ -95,11 +95,11 @@ nav a:hover, .dropdown:hover .dropbtn {
 }
 
 /*  Main */
-  main {
-      overflow:hidden;
-      padding-left: 15px;
-      min-height: 660px;
-  }
+main {
+    overflow:hidden;
+    padding-left: 15px;
+    min-height: 660px;
+}
 
 /* Logga in, registrera dig */
 .box{
