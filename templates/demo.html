@@ -1,0 +1,19 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Findbite</title>
+{% endblock %}
+
+{% block body %}
+<h1>Restauranger</h1>
+
+<ul>
+{% for restaurant in restaurants %}
+
+<li>{{ restaurant["name"] }} ({{ restaurant["price"] }}) ({{ restaurant["review_count"] }}) </li>
+<img src= {{restaurant["image_url"]}}>
+
+{% endfor %}
+</ul>
+
+{% endblock %}
