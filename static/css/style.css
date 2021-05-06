@@ -101,6 +101,10 @@ main {
     min-height: 660px;
 }
 
+#resbild {
+  width: 400px;
+}
+
 /* Logga in, registrera dig */
 .box{
   width: 300px;
