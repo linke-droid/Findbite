@@ -10,8 +10,10 @@
 <ul>
 {% for restaurant in restaurants %}
 
-<li>{{ restaurant["name"] }} ({{ restaurant["price"] }}) ({{ restaurant["review_count"] }}) </li>
-<img src= {{restaurant["image_url"]}}>
+<li><strong>{{ restaurant["name"] }} ({{ restaurant["price"] }}) ({{ restaurant["review_count"] }})</strong></li>
+<br>
+<img id="resbild" src= {{restaurant["image_url"]}}>
+
 
 {% endfor %}
 </ul>
