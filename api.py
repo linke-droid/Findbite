@@ -15,7 +15,7 @@ def get_restaurants(protein_food, type_food, price_food):
         'term': protein_food,
         'categories': type_food,
         'price': price_food,
-        'limit': 10,
+        'limit': 15,
               'location': 'Sweden, Malmö'}
 
     # request yelp API https://www.yelp.com/developers/documentation/v3/business_search
