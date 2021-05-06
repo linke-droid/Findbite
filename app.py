@@ -12,7 +12,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://OnlineStore:Gst989998@lo
 app.debug = True
 db = SQLAlchemy(app)
 
-
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True)
@@ -27,11 +26,9 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
-
 db.create_all()
 db.session.add(
     User(username='admin', email='admin@example.com', password='123'))
-
 
 @app.route('/result', methods=['GET'])
 def result():
@@ -40,11 +37,9 @@ def result():
     data = json.loads(req.content)
     return render_template('result.html', data=data)
 
-
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 @app.route('/api-test', methods=['POST'])
 def demo():
@@ -55,41 +50,33 @@ def demo():
     result = api.get_restaurants(protein_food, type_food, price_food)
     return render_template('demo.html', restaurants=result)
 
-
 @app.route('/logedin')
 def logedin():
     return render_template('logedin.html')
-
 
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
 
-
 @app.route('/aboutus')
 def aboutus():
     return render_template('aboutus.html')
-
 
 @app.route('/login')
 def login():
     return render_template('login.html')
 
-
 @app.route('/register')
 def register():
     return render_template('register.html')
-
 
 @app.route('/myinfo')
 def myinfo():
     return render_template('myinfo.html')
 
-
 @app.route('/editmyinfo')
 def edit_myinfo():
     return render_template('edit_myinfo.html')
-
 
 @app.route('/post_user', methods=['POST'])
 def post_user():
@@ -98,7 +85,6 @@ def post_user():
     db.session.add(user)
     db.session.commit()
     return redirect(url_for('index'))
-
 
 @app.route('/check_login', methods=['GET', 'POST'])
 def log_in():
@@ -114,7 +100,6 @@ def log_in():
     else:
         return render_template('index.html')
 
-
 @app.route('/push_new_info', methods=['GET', 'POST'])
 def push_new_info(id):
     found_user = User.query.get(id)
@@ -127,7 +112,6 @@ def push_new_info(id):
         return redirect(url_for('index'))
     else:
         return render_template('index.html')
-
 
 if __name__ == "__main__":
     app.run()
