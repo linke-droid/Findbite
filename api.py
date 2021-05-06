@@ -3,7 +3,6 @@ import json
 # YelpAPI
 # businessId
 
-
 def get_restaurants(protein_food, type_food, price_food):
     # key should be hidden
     api_key = 'zJAj4o-JYOnTfrbVIrTeO9HM4S9KaEt71QTyt5Ud-EShBRcH_twkMEjSGTVfJXgHOCVxYEEP92xqS0pQOhhOSIzh2IXZ8bs4Q-bJzp76yMam2xXR4A1FhdOlDJCJYHYx'
