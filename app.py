@@ -6,9 +6,10 @@ import json
 import requests
 import json
 import api
+from config import sqlstring
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://OnlineStore:Gst989998@localhost/FindBite?driver=ODBC+Driver+17+for+SQL+Server'
+app.config['SQLALCHEMY_DATABASE_URI'] = sqlstring ()
 app.debug = True
 db = SQLAlchemy(app)
 
