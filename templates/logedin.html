@@ -6,7 +6,7 @@
 
 {% block body %}
 <nav>
-    <a href="/">Startsida</a>
+    <a href="logedin">Startsida</a>
     <div class="dropdown">
         <button class="dropbtn">Min Profil</button>
         <div class="dropdown-content">
@@ -21,68 +21,41 @@
 <main>
     <h1>Välkommen till FindBite!</h1>
     <p>Vänligen fyll i formuläret för att meddela oss dina preferenser och krav:</p>
-    <form action="#" method="POST">
+    <form action="/api-test" method='POST'>
         <fieldset>
             <legend>Matpreferenser</legend>
                 <!--Proteinkälla-->
                 <br>
                 <label for="Proteinkälla">Proteinkälla:</label>
                 <select name="Proteinkälla" id="Proteinkälla">
-                    <option>Kött</option>
-                    <option>Fisk</option>
-                    <option>Kyckling</option>
-                    <option>Vegetariskt</option>
-                    <option>Det spelar ingen roll</option>
+                    <option value="meat">Kött</option>
+                    <option value="fish">Fisk</option>
+                    <option value="chicken">Kyckling</option>
+                    <option value="vegan">Vegetariskt</option>
+                    <option value="#">Det spelar ingen roll</option>
                 </select>
                 <br>
                 <!--Typ av mat-->
                 <br>
-                <label for="Typ av mat">Typ av mat:</label>
-                <select name="Typ av mat" id="Typ av mat">
-                    <option>Italienskt</option>
-                    <option>Husmanskost</option>
-                    <option>Grekiskt</option>
-                    <option>Asiatiskt</option>
-                    <option>Det spelar ingen roll</option>
+                <label for="Typ_av_mat">Typ av mat:</label>
+                <select name="Typ_av_mat" id="Typ_av_mat">
+                    <option value="italian"> Italienskt</option>
+                    <option value="husmanskost">Husmanskost</option>
+                    <option value="greek">Grekiskt</option>
+                    <option value="asian">Asiatiskt</option>
+                    <option value="#">Det spelar ingen roll</option>
                 </select>
                 <br>
-                <!--Specialkost-->
-                <br>
-                <label for="Specialkost">Specialkost:</label>
-                <select name="Specialkost" id="Specialkost">
-                    <option>Glutenfri</option>
-                    <option>Laktosfri</option>
-                    <option>Nötfri</option>
-                    <option>Det spelar ingen roll</option>
-                </select>
-                <br>
-                <!--Måltider-->
-                <br>
-                <label for="Måltider">Måltider:</label>
-                <select name="Måltider" id="Måltider">
-                    <option>Frukost</option>
-                    <option>Lunch</option>
-                    <option>Middag</option>
-                    <option>Det spelar ingen roll</option>
-                </select>
-                <br>
+                
                 <!--Prisklass-->
                 <p>Prisklass:
                 <br>
-                    <input type="checkbox" name="Villkor" value="Låg">
+                    <input type="checkbox" name="price" value="1">
                     Låg prisklass
-                    <input type="checkbox" name="Villkor" value="Medel">
+                    <input type="checkbox" name="price" value="2">
                     Medel prisklass
-                    <input type="checkbox" name="Villkor" value="Hög">
+                    <input type="checkbox" name="price" value="3">
                     Hög prisklass
-                </p>
-                <!--Checkboxar-->
-                <p> Hemleverans:
-                <br>
-                    <input type="radio" name="Prisklass" value="hemleverans">
-                    Restauranger som erbjuder hemleverans
-                    <input type="radio" name="Prisklass" value="hemleverans">
-                    Spelar ingen roll
                 </p>
                 <input type="submit" value="Hitta Restauranger">
         </fieldset>
