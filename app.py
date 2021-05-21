@@ -15,10 +15,6 @@ app.debug = True
 db = SQLAlchemy(app)
 
 
-def sqlstring():
-    return 'mssql+pyodbc://sa:reallyStrongPwd#123@localhost/FindBite?driver=ODBC+Driver+17+for+SQL+Server'
-
-
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True)
