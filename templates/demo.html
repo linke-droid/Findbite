@@ -2,6 +2,7 @@
 
 {% block head %}
 <title>Findbite</title>
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=60aa571bea7f3c00119845c4&product=image-share-buttons" async="async"></script>
 {% endblock %}
 
 {% block body %}
@@ -10,7 +11,8 @@
 <ul>
 {% for restaurant in restaurants %}
 
-<li><strong>{{ restaurant["name"] }} ({{ restaurant["price"] }}) ({{ restaurant["review_count"] }})</strong></li>
+
+<a href="{{ restaurant["url"] }}">{{ restaurant["name"] }}</a><li><strong>({{ restaurant["price"] }}) ({{ restaurant["review_count"] }})</strong></li>
 <br>
 <img id="resbild" src= {{restaurant["image_url"]}}>
 
