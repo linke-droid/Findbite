@@ -1,13 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 import requests
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Table, Column, Integer, ForeignKey
 from pyodbc import *
 import json
 import requests
 import json
-
-from sqlalchemy.sql.expression import true
 import api
 
 from config import sqlstring
@@ -32,25 +29,10 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
-class Favorites(db.Model):
-    id = db.Column(db.Integer, primary_key=True) 
-    restaurantid = db.Column(db.String(200), unique=True)
-    ForeignKey ('user.id')
-     
-    def __init__(self, id, restaurantid):
-        self.id = id
-        self.restaurantid = restaurantid
-
-    def __repr__(self):
-        return '<Favorites %r>' % self.id
 
 db.create_all()
 db.session.add(
     User(username='admin', email='admin@example.com', password='123'))
-    
-db.create_all()
-db.session.add(  
-    Favorites(id='admin', restaurantid='admin@example.com'))
 
 
 @app.route('/result', methods=['GET'])
@@ -120,7 +102,6 @@ def post_user():
     return redirect(url_for('index'))
 
 
-
 @app.route('/check_login', methods=['GET', 'POST'])
 def log_in():
     if request.method == "POST":
@@ -148,14 +129,6 @@ def push_new_info(id):
         return redirect(url_for('index'))
     else:
         return render_template('index.html')
-
-@app.route('/add_fav', methods=['POST'])
-def add_fav():
-    favorites = Favorites(request.form['id'],
-                request.form['restaurantid'])
-    db.session.add(favorites)
-    db.session.commit()
-    return redirect(url_for('index'))
 
 
 if __name__ == "__main__":
