@@ -2,20 +2,22 @@
 
 {% block head %}
 <title>Findbite</title>
-<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=60aa571bea7f3c00119845c4&product=image-share-buttons" async="async"></script>
 {% endblock %}
 
 {% block body %}
 <h1>Restauranger</h1>
-
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0" nonce="6RSBoSoA"></script>
 <ul>
 {% for restaurant in restaurants %}
 
 
 <a href="{{ restaurant["url"] }}">{{ restaurant["name"] }}</a><li><strong>({{ restaurant["price"] }}) ({{ restaurant["review_count"] }})</strong></li>
 <br>
-<img id="resbild" src= {{restaurant["image_url"]}}>
-
+<img id="resbild" src={{restaurant["image_url"]}}>
+<div class="fb-share-button" data-href="{{ restaurant["url"] }}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+<br>
+<br>
 
 
 
