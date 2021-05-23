@@ -23,6 +23,13 @@ def get_restaurants(protein_food, type_food, price_food):
     # request yelp API https://www.yelp.com/developers/documentation/v3/business_search
     response = requests.get(url=search_api_url, headers=headers, params=params)
 
+    business_data = response.json()
+
+    print(business_data.keys())
+
+    for biz in business_data['businesses']:
+        print(biz['name'])
+
     # convert the data into a json object
     data = json.loads(response.text)
 
@@ -30,7 +37,7 @@ def get_restaurants(protein_food, type_food, price_food):
     print(json.dumps(data, indent=4))
 
     # extracts businesses into a python list
-    businesses = data['businesses'] or []
+    businesses = data['businesses']
 
     businesses.sort(key=lambda d: d["price"].count('$'))
 
@@ -46,8 +53,5 @@ def get_restaurants(protein_food, type_food, price_food):
     return businesses
 
 
-
-
-
-
+def sort_price():
 

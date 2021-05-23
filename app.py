@@ -13,6 +13,8 @@ app.debug = True
 db = SQLAlchemy(app)
 
 
+
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True)
@@ -28,9 +30,13 @@ class User(db.Model):
         return '<User %r>' % self.username
 
 
+
+
 db.create_all()
 db.session.add(
     User(username='admin', email='admin@example.com', password='123'))
+
+
 
 
 @app.route('/result', methods=['GET'])
