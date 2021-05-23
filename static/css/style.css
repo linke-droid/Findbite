@@ -215,22 +215,4 @@ footer {
       color: #fff;
   }
 
-  svg {
-    line-height: 1.15;
-    text-size-adjust: 100%;
-    font-family: BinancePlex,Arial,sans-serif!important;
-    -webkit-tap-highlight-color: transparent;
-    direction: ltr;
-    font-weight: 400;
-    text-align: left;
-    box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
-    color: rgb(240, 185, 11);
-    font-size: 16px;
-    fill: rgb(240, 185, 11);
-    width: 1em;
-    height: 1em;
-
-   
-    }
+  
