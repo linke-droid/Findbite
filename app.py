@@ -29,10 +29,19 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+class Favorite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    restaurantid = db.Column(db.String(200), unique=True)
+
+    def __init__(self, id, restaurantid):
+        self.id = id
+        self.restaurantid = restaurantid
+
+    def __repr__(self):
+        return '<User %r>' % self.username
 
 db.create_all()
-db.session.add(
-    User(username='admin', email='admin@example.com', password='123'))
+
 
 
 @app.route('/result', methods=['GET'])
