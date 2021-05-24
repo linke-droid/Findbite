@@ -56,13 +56,22 @@ def result():
 def index():
     return render_template('index.html')
 
+protein_food = ""
+type_food = ""
+price_food = ""
 
-@app.route('/api-test', methods=['POST'])
+@app.route('/api-test', methods=['POST','GET'])
 def demo():
-    protein_food = request.form['Proteinkälla']
-    type_food = request.form['Typ_av_mat']
-    print(type_food)
-    price_food = request.form['price']
+    global protein_food, type_food, price_food
+    if request.method == 'POST':
+        protein_food = request.form['Proteinkälla']
+        type_food = request.form['Typ_av_mat']
+        print(type_food)
+        price_food = request.form['price']
+    else:
+        favorite=request.args.get('favorite')
+        name=request.args.get('name')
+        print(name,favorite)
     result = api.get_restaurants(protein_food, type_food, price_food)
     return render_template('demo.html', restaurants=result)
 
