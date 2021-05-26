@@ -13,8 +13,6 @@ app.debug = True
 db = SQLAlchemy(app)
 
 
-
-
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True)
@@ -30,13 +28,9 @@ class User(db.Model):
         return '<User %r>' % self.username
 
 
-
-
 db.create_all()
 db.session.add(
     User(username='admin', email='admin@example.com', password='123'))
-
-
 
 
 @app.route('/result', methods=['GET'])
@@ -54,14 +48,13 @@ def index():
 
 @app.route('/api-test', methods=['POST'])
 def demo():
+    global protein_food, type_food, price_food
     protein_food = request.form['Proteinkälla']
     type_food = request.form['Typ_av_mat']
     print(type_food)
     price_food = request.form['price']
     result = api.get_restaurants(protein_food, type_food, price_food)
     print(result)
-
-    print("HÄR ÄR DET VI VILL SEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
 
     return render_template('demo.html', restaurants=result)
 
