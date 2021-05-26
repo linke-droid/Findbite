@@ -1,0 +1,45 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Findbite</title>
+{% endblock %}
+
+{% block body %}
+<nav>
+    <a href="/">Startsida</a>
+    <div class="dropdown">
+        <button class="dropbtn">Min Profil</button>
+        <div class="dropdown-content">
+            {%if session == ""%}
+        <a href="login">Logga in</a>
+        <a href="register">Registrera dig</a>
+            {% else%}
+        <a href="myinfo">Min uppgifter</a>
+        <a href="#">Mina listor</a>
+        <a href="/logout">Logga ut</a>
+            {%endif%}
+        </div>
+    </div> 
+    <a href="aboutus">Om oss</a>
+    <a href="contact">Kontakt</a>
+    <a href="historik">Historik</a>
+</nav>
+
+<main>
+  <h1>Historik</h1>  
+
+  {%if session != ""%}
+
+  <h3>Dina tre senaste sökningar!</h3>
+{% for v in values %} 
+    <p>{{ v.r_name}}, {{v.price}}, {{v.review_count}}</p>
+
+    <img id="resbild" src= {{v["image_url"]}} alt="bild på mat">
+{% endfor %}
+
+{% else%}
+<p> Du måste skapa konto eller vara inloggad för att kolla på din historik! </p>
+{%endif%}
+
+</main>
+{% endblock %}
