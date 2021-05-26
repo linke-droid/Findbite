@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Findbite</title>
+{% endblock %}
+
+{% block body %}
+<nav>
+    <a href="logedin">Startsida</a>
+    <div class="dropdown">
+        <button class="dropbtn">Min Profil</button>
+        <div class="dropdown-content">
+        <a href="myinfo">Min uppgifter</a>
+        <a href="#">Mina listor</a>
+        <a href="/">Logga ut</a>
+        </div>
+    </div> 
+    <a href="aboutus">Om oss</a>
+    <a href="contact">Kontakt</a>
+    <a href="historik">Historik</a>
+</nav>
+<main>
+<main>
+    <h1>Du är utloggad!</h1>
+</main>
+{% endblock %}
