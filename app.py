@@ -1,15 +1,18 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, g
 import requests
 from flask_sqlalchemy import SQLAlchemy
 from pyodbc import *
 import json
 import requests
 import json
+
+from werkzeug import useragents
 import api
 
 from config import sqlstring
 
 app = Flask(__name__)
+app.secret_key = "hello"
 app.config['SQLALCHEMY_DATABASE_URI'] = sqlstring()
 app.debug = True
 db = SQLAlchemy(app)
@@ -45,7 +48,7 @@ def result():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', session = session["user"])
 
 
 @app.route('/api-test', methods=['POST'])
@@ -55,7 +58,29 @@ def demo():
     print(type_food)
     price_food = request.form['price']
     result = api.get_restaurants(protein_food, type_food, price_food)
-    return render_template('demo.html', restaurants=result)
+    #print (result) 
+    for r in result:
+        his = history(r ["name"], r ["price"], r ["review_count"], r ["image_url"])
+        db.session.add(his)
+        db.session.commit()
+    return render_template('demo.html',restaurants=result)
+    
+class history(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    r_name = db.Column(db.String(100))
+    price = db.Column(db.String(110))
+    review_count = db.Column(db.Integer)
+    image_url = db.Column (db.String(200))
+    
+
+    def __init__(self, r_name, price, review_count, image_url):
+        self.r_name = r_name
+        self.price = price
+        self.review_count = review_count
+        self.image_url = image_url
+       
+
+
 
 
 @app.route('/logedin')
@@ -65,12 +90,12 @@ def logedin():
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    return render_template('contact.html', session = session["user"])
 
 
 @app.route('/aboutus')
 def aboutus():
-    return render_template('aboutus.html')
+    return render_template('aboutus.html', session = session["user"])
 
 
 @app.route('/login')
@@ -81,6 +106,16 @@ def login():
 @app.route('/register')
 def register():
     return render_template('register.html')
+
+
+@app.route('/historik')
+def historik():
+    user = session["user"]
+    print(user)
+    values = db.session.query(history).order_by(history.id.desc()).limit(3).all()
+    print (values)
+    return render_template('historik.html', values= values, session = session["user"])
+
 
 
 @app.route('/myinfo')
@@ -107,6 +142,7 @@ def log_in():
     if request.method == "POST":
         user_name = request.form['username']
         pass_word = request.form['password']
+        session ["user"] = user_name
         res = User.query.filter_by(
             username=user_name, password=pass_word).all()
         if not res:
@@ -129,6 +165,11 @@ def push_new_info(id):
         return redirect(url_for('index'))
     else:
         return render_template('index.html')
+
+@app.route('/logout')
+def logout():
+    session ["user"] = ""
+    return redirect (url_for("index"))
 
 
 if __name__ == "__main__":
