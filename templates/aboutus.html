@@ -10,12 +10,19 @@
     <div class="dropdown">
         <button class="dropbtn">Min Profil</button>
         <div class="dropdown-content">
+            {%if session == ""%}
         <a href="login">Logga in</a>
         <a href="register">Registrera dig</a>
+            {% else%}
+            <a href="myinfo">Min uppgifter</a>
+            <a href="#">Mina listor</a>
+            <a href="/logout">Logga ut</a>
+            {%endif%}
         </div>
     </div> 
     <a href="aboutus">Om oss</a>
     <a href="contact">Kontakt</a>
+    <a href="historik">Historik</a>
 </nav>
 <main>
     <h1>Om oss</h1>
