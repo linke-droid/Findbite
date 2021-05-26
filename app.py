@@ -64,7 +64,8 @@ def demo():
         db.session.add(his)
         db.session.commit()
     return render_template('demo.html',restaurants=result)
-    
+
+   
 class history(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     r_name = db.Column(db.String(100))
