@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import requests
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Integer, ForeignKey, String, Column
 from pyodbc import *
 import json
 import requests
@@ -30,7 +31,7 @@ class User(db.Model):
         return '<User %r>' % self.username
 
 class Favorite(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, ForeignKey(User.id), primary_key=True)
     restaurantid = db.Column(db.String(200), unique=True)
 
     def __init__(self, id, restaurantid):
@@ -116,6 +117,14 @@ def post_user():
     user = User(request.form['username'],
                 request.form['email'], request.form['password'])
     db.session.add(user)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+@app.route('/post_fav', methods=['POST'])
+def post_fav():
+    fav = Favorite(request.form['id'],
+                request.form['restaurantid'])
+    db.session.add(fav)
     db.session.commit()
     return redirect(url_for('index'))
 
