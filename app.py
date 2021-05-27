@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, g
+from flask import Flask, render_template, request, redirect, url_for, session
 import requests
 from flask_sqlalchemy import SQLAlchemy
 from pyodbc import *
@@ -48,7 +48,10 @@ def result():
 
 @app.route('/')
 def index():
-    return render_template('index.html', session = session["user"])
+    user = session["user"]
+    print(user)
+    
+    return render_template('index.html', session = user)
 
 
 @app.route('/api-test', methods=['POST'])
@@ -152,6 +155,8 @@ def log_in():
             return render_template('logedin.html')
     else:
         return render_template('index.html')
+
+
 
 
 @app.route('/push_new_info', methods=['GET', 'POST'])
