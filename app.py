@@ -120,9 +120,9 @@ def post_user():
     db.session.commit()
     return redirect(url_for('index'))
 
-@app.route('/post_fav', methods=['POST'])
-def post_fav():
-    fav = Favorite(request.form['id'],
+@app.route('/share_fav', methods=['POST', 'GET'])
+def share_fav():
+    fav = Favorite(
                 request.form['restaurantid'])
     db.session.add(fav)
     db.session.commit()
