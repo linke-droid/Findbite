@@ -118,15 +118,15 @@ def post_user():
                 request.form['email'], request.form['password'])
     db.session.add(user)
     db.session.commit()
-    return redirect(url_for('index'))
+    return render_template('index.html')
 
-@app.route('/share_fav', methods=['POST', 'GET'])
+@app.route('/share_fav', methods=['POST'])
 def share_fav():
-    fav = Favorite(
+    fav = Favorite(request.form['id'],
                 request.form['restaurantid'])
     db.session.add(fav)
     db.session.commit()
-    return redirect(url_for('index'))
+    return render_template('index.html')
 
 
 @app.route('/check_login', methods=['GET', 'POST'])
