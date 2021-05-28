@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import requests
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Integer, ForeignKey, String, Column
@@ -31,7 +31,8 @@ class User(db.Model):
         return '<User %r>' % self.username
 
 class Favorite(db.Model):
-    id = db.Column(db.Integer, ForeignKey(User.id), primary_key=True)
+    favorite = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, ForeignKey(User.id))
     restaurantid = db.Column(db.String(200), unique=True)
 
     def __init__(self, id, restaurantid):
