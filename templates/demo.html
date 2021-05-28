@@ -14,6 +14,12 @@
 
 <a id="restaurant_name" href="{{ restaurant["url"] }}">{{ restaurant["name"] }}</a>
 <i class="bi bi-star"></i>
+
+<form action="share_fav">
+    
+    <input name="favoriterna" type="submit" value="Lägg till i favoriter">
+</form>
+
 <li><strong>({{ restaurant["price"] }}) ({{ restaurant["review_count"] }}) ({{ restaurant["reviews"] }})</strong></li>
 <br>
 <img id="resbild" src={{restaurant["image_url"]}}>
