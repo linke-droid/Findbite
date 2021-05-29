@@ -97,11 +97,13 @@ def aboutus():
 def login():
     return render_template('login.html')
 
-
 @app.route('/register')
 def register():
     return render_template('register.html')
 
+@app.route('/favorites')
+def favorites():
+    return render_template('favorites.html')
 
 @app.route('/myinfo')
 def myinfo():
@@ -111,7 +113,6 @@ def myinfo():
 @app.route('/editmyinfo')
 def edit_myinfo():
     return render_template('edit_myinfo.html')
-
 
 @app.route('/post_user', methods=['POST'])
 def post_user():
@@ -137,8 +138,6 @@ def share_fav():
             db.session.commit()
             return render_template('index.html')   
 
-
-
 @app.route('/check_login', methods=['GET', 'POST'])
 def log_in():
     if request.method == "POST":
@@ -152,7 +151,6 @@ def log_in():
             return render_template('logedin.html')
     else:
         return render_template('index.html')
-
 
 @app.route('/push_new_info', methods=['GET', 'POST'])
 def push_new_info(id):
