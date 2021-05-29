@@ -125,9 +125,18 @@ def post_user():
 def share_fav():
     fav = Favorite(request.form['id'],
                 request.form['restaurantid'])
-    db.session.add(fav)
-    db.session.commit()
-    return render_template('index.html')
+    if request.method == "POST":
+        idnumber = request.form['id']
+        restaurantname = request.form['restaurantid']
+        result = User.query.filter_by(
+            username=idnumber, password=restaurantname).all()
+        if not result:
+            return render_template('logedin.html')
+        else:
+            db.session.add(fav)
+            db.session.commit()
+            return render_template('index.html')   
+
 
 
 @app.route('/check_login', methods=['GET', 'POST'])
