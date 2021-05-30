@@ -5,14 +5,37 @@
 {% endblock %}
 
 {% block body %}
+<nav>
+    <a href="/">Startsida</a>
+    <div class="dropdown">
+        <button class="dropbtn">Min Profil</button>
+        <div class="dropdown-content">
+            {%if session == ""%}
+        <a href="login">Logga in</a>
+        <a href="register">Registrera dig</a>
+            {% else%}
+        <a href="favorites">Mina favoriter</a>
+        <a href="/logout">Logga ut</a>
+            {%endif%}
+        </div>
+    </div> 
+    <a href="aboutus">Om oss</a>
+    <a href="contact">Kontakt</a>
+    <a href="historik">Historik</a>
+</nav>
+<main>
 <h1>Mina favoriter</h1>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0" nonce="6RSBoSoA"></script>
 {% for item in Values %}
     <a href="{{item.urlen}}">{{item.restaurantid}}</a>
     <br>
     <br>
     <img id="resbild" src="{{item.bildid}}" alt="bild">
+    <div class="fb-share-button" data-href="{{item.urlen}}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Dela</a></div>
     <br>
     <br>
 {% endfor %}
+</main>
 {% endblock %}
 
