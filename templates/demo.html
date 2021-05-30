@@ -5,6 +5,25 @@
 {% endblock %}
 
 {% block body %}
+<nav>
+    <a href="/">Startsida</a>
+    <div class="dropdown">
+        <button class="dropbtn">Min Profil</button>
+        <div class="dropdown-content">
+            {%if session == ""%}
+        <a href="login">Logga in</a>
+        <a href="register">Registrera dig</a>
+            {% else%}
+        <a href="favorites">Mina favoriter</a>
+        <a href="/logout">Logga ut</a>
+            {%endif%}
+        </div>
+    </div> 
+    <a href="aboutus">Om oss</a>
+    <a href="contact">Kontakt</a>
+    <a href="historik">Historik</a>
+</nav>
+<main>
 <h1>Restauranger</h1>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0" nonce="6RSBoSoA"></script>
@@ -13,8 +32,6 @@
 
 
 <a id="restaurant_name" href="{{ restaurant["url"] }}">{{ restaurant["name"] }}</a>
-<i class="bi bi-star"></i>
-
 <form action="\share_fav" method="post">
     <label for="id"></label>
     <input id="id" type="hidden" name="id" value="2">
@@ -26,18 +43,15 @@
     <input type="hidden" name="bildid" id="bildid" value="{{restaurant["image_url"]}}">
     <input type="submit" name="submit" value="Lägg till i favoriter">
 </form>
-
 <li><strong>({{ restaurant["price"] }}) ({{ restaurant["review_count"] }}) ({{ restaurant["reviews"] }})</strong></li>
 <br>
 <img id="resbild" src={{restaurant["image_url"]}}>
-<div class="fb-share-button" data-href="{{ restaurant["url"] }}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+<div class="fb-share-button" data-href="{{ restaurant["url"] }}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Dela</a></div>
 <br>
 <br>
-
-
 
 {% endfor %}
 </ul>
-
+</main>
 {% endblock %}
 
