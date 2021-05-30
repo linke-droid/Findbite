@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Findbite</title>
+{% endblock %}
+
+{% block body %}
+<h1>Mina favoriter</h1>
+{% for item in Values %}
+    <a href="{{item.urlen}}">{{item.restaurantid}}</a>
+    <br>
+    <br>
+    <img id="resbild" src="{{item.bildid}}" alt="bild">
+    <br>
+    <br>
+{% endfor %}
+{% endblock %}
+

@@ -1,13 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import requests
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Integer, ForeignKey, String, Column
 from pyodbc import *
 import json
 import requests
 import json
 
-from werkzeug import useragents
 import api
+from werkzeug import useragents
 
 from config import sqlstring
 
@@ -32,10 +33,24 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+class Favorite(db.Model):
+    favorite = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, ForeignKey(User.id))
+    restaurantid = db.Column(db.String(200))
+    urlen = db.Column(db.String(200))
+    bildid = db.Column(db.String(200))
+
+    def __init__(self, id, restaurantid, urlen, bildid):
+        self.id = id
+        self.restaurantid = restaurantid
+        self.urlen = urlen
+        self.bildid = bildid
+
+    def __repr__(self):
+        return '<User %r>' % self.username
 
 db.create_all()
-db.session.add(
-    User(username='admin', email='admin@example.com', password='123'))
+
 
 
 @app.route('/result', methods=['GET'])
@@ -53,13 +68,22 @@ def index():
     
     return render_template('index.html', session = user)
 
+protein_food = ""
+type_food = ""
+price_food = ""
 
-@app.route('/api-test', methods=['POST'])
+@app.route('/api-test', methods=['POST','GET'])
 def demo():
-    protein_food = request.form['Proteinkälla']
-    type_food = request.form['Typ_av_mat']
-    print(type_food)
-    price_food = request.form['price']
+    global protein_food, type_food, price_food
+    if request.method == 'POST':
+        protein_food = request.form['Proteinkälla']
+        type_food = request.form['Typ_av_mat']
+        print(type_food)
+        price_food = request.form['price']
+    else:
+        favorite=request.args.get('favorite')
+        name=request.args.get('name')
+        print(name,favorite)
     result = api.get_restaurants(protein_food, type_food, price_food)
     #print (result) 
     for r in result:
@@ -91,6 +115,10 @@ class history(db.Model):
 def logedin():
     return render_template('logedin.html')
 
+@app.route("/logout")
+def logout():
+    session ["user"] = ""
+    return redirect(url_for("login"))
 
 @app.route('/contact')
 def contact():
@@ -106,11 +134,13 @@ def aboutus():
 def login():
     return render_template('login.html')
 
-
 @app.route('/register')
 def register():
     return render_template('register.html')
 
+@app.route('/favorites')
+def favorites():
+    return render_template('favorites.html', Values=Favorite.query.filter_by(id=2).all(), session = session["user"])
 
 @app.route('/historik')
 def historik():
@@ -126,11 +156,9 @@ def historik():
 def myinfo():
     return render_template('myinfo.html')
 
-
 @app.route('/editmyinfo')
 def edit_myinfo():
     return render_template('edit_myinfo.html')
-
 
 @app.route('/post_user', methods=['POST'])
 def post_user():
@@ -139,7 +167,6 @@ def post_user():
     db.session.add(user)
     db.session.commit()
     return redirect(url_for('index'))
-
 
 @app.route('/check_login', methods=['GET', 'POST'])
 def log_in():
@@ -156,6 +183,15 @@ def log_in():
     else:
         return render_template('index.html')
 
+@app.route('/share_fav', methods=['POST'])
+def share_fav():
+    fav = Favorite(request.form['id'],
+    request.form['restaurantid'],
+    request.form['urlen'],
+    request.form['bildid'])
+    db.session.add(fav)
+    db.session.commit()
+    return render_template('index.html')   
 
 
 
