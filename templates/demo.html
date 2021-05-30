@@ -20,6 +20,10 @@
     <input id="id" type="hidden" name="id" value="2">
     <label for="restaurantid"></label>
     <input id="restaurantid" value="{{ restaurant["name"] }}" type="hidden" name="restaurantid">
+    <label for="urlen"></label>
+    <input id="urlen" type="hidden" value="{{ restaurant["url"] }}" name="urlen">
+    <label for="bildid"></label>
+    <input type="hidden" name="bildid" id="bildid" value="{{restaurant["image_url"]}}">
     <input type="submit" name="submit" value="Lägg till i favoriter">
 </form>
 
