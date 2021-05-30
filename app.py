@@ -49,6 +49,20 @@ class Favorite(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+class history(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    r_name = db.Column(db.String(100))
+    price = db.Column(db.String(110))
+    review_count = db.Column(db.Integer)
+    image_url = db.Column (db.String(200))
+    
+
+    def __init__(self, r_name, price, review_count, image_url):
+        self.r_name = r_name
+        self.price = price
+        self.review_count = review_count
+        self.image_url = image_url
+
 db.create_all()
 
 
@@ -92,33 +106,9 @@ def demo():
         db.session.commit()
     return render_template('demo.html',restaurants=result)
 
-   
-class history(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    r_name = db.Column(db.String(100))
-    price = db.Column(db.String(110))
-    review_count = db.Column(db.Integer)
-    image_url = db.Column (db.String(200))
-    
-
-    def __init__(self, r_name, price, review_count, image_url):
-        self.r_name = r_name
-        self.price = price
-        self.review_count = review_count
-        self.image_url = image_url
-       
-
-
-
-
 @app.route('/logedin')
 def logedin():
     return render_template('logedin.html')
-
-@app.route("/logout")
-def logout():
-    session ["user"] = ""
-    return redirect(url_for("login"))
 
 @app.route('/contact')
 def contact():
@@ -149,8 +139,6 @@ def historik():
     values = db.session.query(history).order_by(history.id.desc()).limit(3).all()
     print (values)
     return render_template('historik.html', values= values, session = session["user"])
-
-
 
 @app.route('/myinfo')
 def myinfo():
