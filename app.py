@@ -5,12 +5,13 @@ from sqlalchemy import Integer, ForeignKey, String, Column
 from pyodbc import *
 import json
 import requests
-import json
 import api
+from werkzeug import useragents
 
 from config import sqlstring
 
 app = Flask(__name__)
+app.secret_key = "hello"
 app.config['SQLALCHEMY_DATABASE_URI'] = sqlstring()
 app.debug = True
 db = SQLAlchemy(app)
@@ -33,11 +34,15 @@ class User(db.Model):
 class Favorite(db.Model):
     favorite = db.Column(db.Integer, primary_key=True)
     id = db.Column(db.Integer, ForeignKey(User.id))
-    restaurantid = db.Column(db.String(200), unique=True)
+    restaurantid = db.Column(db.String(200))
+    urlen = db.Column(db.String(200))
+    bildid = db.Column(db.String(200))
 
-    def __init__(self, id, restaurantid):
+    def __init__(self, id, restaurantid, urlen, bildid):
         self.id = id
         self.restaurantid = restaurantid
+        self.urlen = urlen
+        self.bildid = bildid
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -56,7 +61,9 @@ def result():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    user = session["user"]
+    print(user)
+    return render_template('index.html', session = user)
 
 protein_food = ""
 type_food = ""
@@ -82,15 +89,19 @@ def demo():
 def logedin():
     return render_template('logedin.html')
 
+@app.route("/logout")
+def logout():
+    session ["user"] = ""
+    return redirect(url_for("login"))
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    return render_template('contact.html', session = session["user"])
 
 
 @app.route('/aboutus')
 def aboutus():
-    return render_template('aboutus.html')
+    return render_template('aboutus.html', session = session["user"])
 
 
 @app.route('/login')
@@ -103,12 +114,11 @@ def register():
 
 @app.route('/favorites')
 def favorites():
-    return render_template('favorites.html')
+    return render_template('favorites.html', Values=Favorite.query.filter_by(id=2).all(), session = session["user"])
 
 @app.route('/myinfo')
 def myinfo():
     return render_template('myinfo.html')
-
 
 @app.route('/editmyinfo')
 def edit_myinfo():
@@ -120,29 +130,14 @@ def post_user():
                 request.form['email'], request.form['password'])
     db.session.add(user)
     db.session.commit()
-    return render_template('index.html')
-
-@app.route('/share_fav', methods=['POST'])
-def share_fav():
-    fav = Favorite(request.form['id'],
-                request.form['restaurantid'])
-    if request.method == "POST":
-        idnumber = request.form['id']
-        restaurantname = request.form['restaurantid']
-        result = User.query.filter_by(
-            username=idnumber, password=restaurantname).all()
-        if not result:
-            return render_template('logedin.html')
-        else:
-            db.session.add(fav)
-            db.session.commit()
-            return render_template('index.html')   
+    return redirect(url_for('index'))
 
 @app.route('/check_login', methods=['GET', 'POST'])
 def log_in():
     if request.method == "POST":
         user_name = request.form['username']
         pass_word = request.form['password']
+        session ["user"] = user_name
         res = User.query.filter_by(
             username=user_name, password=pass_word).all()
         if not res:
@@ -151,6 +146,16 @@ def log_in():
             return render_template('logedin.html')
     else:
         return render_template('index.html')
+
+@app.route('/share_fav', methods=['POST'])
+def share_fav():
+    fav = Favorite(request.form['id'],
+    request.form['restaurantid'],
+    request.form['urlen'],
+    request.form['bildid'])
+    db.session.add(fav)
+    db.session.commit()
+    return render_template('index.html')   
 
 @app.route('/push_new_info', methods=['GET', 'POST'])
 def push_new_info(id):
