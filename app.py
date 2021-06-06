@@ -77,10 +77,9 @@ def result():
 
 @app.route('/')
 def index():
-    user = session["user"]
-    print(user)
     
-    return render_template('index.html', session = user)
+    
+    return render_template('login.html')
 
 protein_food = ""
 type_food = ""
@@ -130,7 +129,7 @@ def register():
 
 @app.route('/favorites')
 def favorites():
-    return render_template('favorites.html', Values=Favorite.query.filter_by(id=2).all(), session = session["user"])
+    return render_template('favorites.html', Values=Favorite.query.filter_by(id=1).all(), session = session["user"])
 
 @app.route('/historik')
 def historik():
